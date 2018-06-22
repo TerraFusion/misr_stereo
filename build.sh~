@@ -1,0 +1,44 @@
+#! /bin/bash
+
+# Script to build misr-stereo on keeling.earth.illinois.edu
+#
+# Current prerequisite software versions (7/12/2012):
+#  freeglut-2.6.0-1 freeglut-devel-2.6.0-1 (RPMs)
+#  hdf-4.2.5-1 hdf-devel-4.2.5-1 (RPMs)
+#  libXmu-1.0.5-1 libXmu-devel-1.0.5-1 (RPMs)
+#  qt-devel-4.6.2-24 (RPM)
+#  szip 2.1 (built from source)
+#
+# This directory (in which to build bin/misr-stereo)
+misrpath=$HOME/misr-stereo-2013.11.24
+
+# Path to the HDF 4 include files
+hdfincdir=/usr/include/hdf
+# Path to the HDF 4 libraries
+hdflibdir=/usr/lib64/hdf
+# Path to the "qmake" Qt executable
+qtbin=/usr/lib64/qt4/bin
+# Base directory for szip (contains include/, lib/)
+szbase=/usr/local/szip2.1
+
+cat > $misrpath/stereo/config.h << EOF
+#ifndef PACKAGE_DATA_DIR
+#define PACKAGE_DATA_DIR "$misrpath"
+#endif
+EOF
+
+
+make MISRDIR="$misrpath" HDF4INC="$hdfincdir" HDF4LIB="$hdflibdir" QTBIN="$qtbin" SZIPDIR="$szbase" bin/misr-stereo
+
+echo 
+echo "To run misr-stereo, the following must appear in your LD_LIBRARY_PATH:"
+echo $szbase "/lib"
+echo "Running to a remote display may also require the environment setting:"
+echo "setenv LIBGL_ALWAYS_INDIRECT 1"
+echo
+echo "Using a 3D TV as a 2nd display may require the environment setting:"
+echo "setenv DISPLAY :0.1"
+echo
+echo "'MISRDIR' (/stereo/stereo.pro [line 13]) must be set to misr-stereo directory" 
+echo " ex. MISRDIR = /home/mstereo/a/[USERNAME]/misr-stereo"
+echo
