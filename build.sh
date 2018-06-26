@@ -10,16 +10,16 @@
 #  szip 2.1 (built from source)
 #
 # This directory (in which to build bin/misr-stereo)
-misrpath=$HOME/misr-stereo-2013.11.24
+misrpath=/home/landon/misr_stereo
 
 # Path to the HDF 4 include files
-hdfincdir=/usr/include/hdf
+hdfincdir=/usr/local/include/
 # Path to the HDF 4 libraries
-hdflibdir=/usr/lib64/hdf
+hdflibdir=/usr/local/lib/
 # Path to the "qmake" Qt executable
-qtbin=/usr/lib64/qt4/bin
+qtbin=/usr/bin/
 # Base directory for szip (contains include/, lib/)
-szbase=/usr/local/szip2.1
+szbase=/usr/local/
 
 cat > $misrpath/stereo/config.h << EOF
 #ifndef PACKAGE_DATA_DIR

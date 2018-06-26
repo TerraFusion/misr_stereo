@@ -1,5 +1,5 @@
 #include "misr_png_helper.h"
-
+#include <cstring>
 #include <png.h>
 
 
@@ -138,7 +138,7 @@ misr_load_png(const char *name, int &width, int &height, bool &alpha)
         // note that png is ordered top to
         // bottom, but OpenGL expect it bottom to top
         // so the order or swapped 
-        memcpy(__buffer + (row_bytes * (height - 1 - i)), row_pointers[i], row_bytes); 
+	std::memcpy(__buffer + (row_bytes * (height - 1 - i)), row_pointers[i], row_bytes); 
      } 
    
    /*
